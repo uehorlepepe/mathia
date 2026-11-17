@@ -1,0 +1,3 @@
+swimmer,clip,window_s,swim_speed_ms,hand_mean_speed_ms,hand_max_speed_ms,hand_arc_length_m,hand_excursion_m,note
+Me,Yifanwang50m.mov,2.33,1.64 (known 200m time); 1.34 tracked here,0.95,3.38,2.21,1.58,"200 m race: 2:02.35 -> 1.64 m/s average (known). Tracked body speed over this turn-approach window: 1.34 m/s. Coordinates are hand relative to the torso; clip is a distant side view, so treat as +/-30%."
+McEvoy,mcevoy.mp4,1.74,not measurable,1.06,5.45,1.83,1.12,Head-on underwater clip: swim speed not measurable (no depth reference). Hand kinematics relative to trunks are reliable.

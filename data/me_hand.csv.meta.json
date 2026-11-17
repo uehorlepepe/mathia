@@ -1,0 +1,31 @@
+{
+  "video": "/Users/yifanwang/Downloads/Yifanwang50m.mov",
+  "point": "hand",
+  "method": "Lucas-Kanade + template fallback (semi-automatic, re-anchored by hand)",
+  "fps": 30.002025339244323,
+  "start_frame": 760,
+  "end_frame": 830,
+  "anchors": [
+    [
+      760,
+      [
+        520.0,
+        222.0
+      ]
+    ]
+  ],
+  "n_frames": 71,
+  "methods": {
+    "anchor": 1,
+    "lk": 42,
+    "template": 26,
+    "hold": 2
+  },
+  "m_per_px": null,
+  "scale_x_m_per_px": 0.015,
+  "scale_y_m_per_px": 0.031,
+  "origin_px": [
+    520.0,
+    223.46786499023438
+  ]
+}

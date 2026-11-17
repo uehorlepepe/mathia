@@ -1,0 +1,19 @@
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+
+# Raw video is large and licensed to the original uploaders - not distributed
+data/*.mp4
+data/*.mov
+data/*.mkv
+data/*.webm
+
+# Generated plots and intermediate clips stay local; the numeric results
+# (*.csv, *.json in outputs/) are committed so the analysis is reproducible
+# without re-rendering every figure.
+outputs/**/*.jpg
+outputs/**/*.jpeg
+outputs/**/*.png
+outputs/**/*.webp
+outputs/**/*.mp4

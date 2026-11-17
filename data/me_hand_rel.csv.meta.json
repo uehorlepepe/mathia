@@ -1,0 +1,17 @@
+{
+  "hand_csv": "data/me_hand.csv",
+  "video": "/Users/yifanwang/Downloads/Yifanwang50m.mov",
+  "body_roi": [
+    300,
+    195,
+    900,
+    275
+  ],
+  "body_method": {
+    "detected": 71,
+    "interpolated": 0
+  },
+  "scale_x_m_per_px": 0.0136,
+  "scale_y_m_per_px": 0.031,
+  "note": "x_px/y_px are hand minus body landmark, zeroed at first frame"
+}
