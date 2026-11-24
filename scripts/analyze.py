@@ -265,6 +265,51 @@ def compare(tracks, summaries, outdir):
     }
 
 
+def cross_model_r2(tracks, degree):
+    """R^2 of one track's polynomial model when used to predict another's data.
+
+    Both tracks are re-parameterised on normalised time u in [0, 1] and both
+    are already offset to start at the origin, so a source model can be
+    evaluated directly on the target's digitised points. r2 is the plain
+    goodness of fit (amplitude differences count against it); r2_scaled
+    additionally fits a single overall scale factor, so it only punishes
+    shape differences. The source track's own r2 is its reference number.
+    """
+    model = {}
+    for label, vals in tracks.items():
+        t, x, y = vals[0], vals[1], vals[2]
+        u = (t - t.min()) / (t.max() - t.min())
+        model[label] = dict(
+            u=u, x=x, y=y,
+            cx=np.polyfit(u, x, degree),
+            cy=np.polyfit(u, y, degree),
+        )
+
+    out = []
+    for src, m in model.items():
+        for tgt, d in model.items():
+            if src == tgt:
+                continue
+            px = np.polyval(m["cx"], d["u"])
+            py = np.polyval(m["cy"], d["u"])
+            xt, yt = d["x"], d["y"]
+            ss_tot = float(np.sum((xt - xt.mean()) ** 2 +
+                                  (yt - yt.mean()) ** 2))
+            ss_res = float(np.sum((xt - px) ** 2 + (yt - py) ** 2))
+            scale = float((px @ xt + py @ yt) / (px @ px + py @ py))
+            ss_res_s = float(np.sum((xt - scale * px) ** 2 +
+                                    (yt - scale * py) ** 2))
+            out.append({
+                "source": src,
+                "target": tgt,
+                "degree": int(degree),
+                "r2": 1 - ss_res / ss_tot,
+                "r2_scaled": 1 - ss_res_s / ss_tot,
+                "scale": scale,
+            })
+    return out
+
+
 def main():
     args = parse_args()
     if len(args.csv) > 2:
@@ -304,6 +349,15 @@ def main():
         print(f"  normalised path RMSE: {comp['position_rmse']:.4f}")
         print(f"  arc length difference: "
               f"{comp['arc_length_difference']:.4f}")
+
+        deg = args.degree or summaries[0]["degree_x"]
+        cross = cross_model_r2(tracks, deg)
+        summaries.append({"cross_model_r2": cross})
+        print(f"\nCross-model R^2 (degree {deg}, normalised time)")
+        for c in cross:
+            print(f"  {c['source']} model -> {c['target']} data: "
+                  f"R^2 {c['r2']:.4f}  (shape only, scale fitted: "
+                  f"{c['r2_scaled']:.4f}, scale {c['scale']:.2f})")
 
     (outdir / "summary.json").write_text(json.dumps(summaries, indent=2))
     print(f"\nWrote results to {outdir}/")

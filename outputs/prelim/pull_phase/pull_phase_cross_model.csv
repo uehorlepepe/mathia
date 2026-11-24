@@ -1,0 +1,5 @@
+source,target,degree,r2,r2_scale_invariant,r2_rotated,angle_deg,scale,rotation_scale,rmse_mm
+Dressel,A3,3,0.8727,0.9026,0.9332,6.5,1.128,1.135,175.4
+Dressel,A2,3,-0.9137,0.6401,0.785,-14.7,0.538,0.556,342.5
+A3,Dressel,3,0.7797,0.8752,0.9148,-6.6,0.847,0.853,178.8
+A2,Dressel,3,0.1881,0.5826,0.7464,14.0,1.628,1.677,343.3

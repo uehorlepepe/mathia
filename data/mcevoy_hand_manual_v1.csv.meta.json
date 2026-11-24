@@ -1,0 +1,12 @@
+{
+  "video": "data/mcevoy.mp4",
+  "fps": 27.59242560865645,
+  "point": "wrist",
+  "step": 1,
+  "calibration": null,
+  "m_per_px": null,
+  "origin_px": [
+    316.5,
+    87.5
+  ]
+}

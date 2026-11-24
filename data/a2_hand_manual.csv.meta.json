@@ -1,0 +1,13 @@
+{
+  "video": "data/a2yifan.mov",
+  "fps": 29.97002997002997,
+  "point": "wrist",
+  "step": 1,
+  "min_change": 1.0,
+  "calibration": "data/a2.calibration_body.json",
+  "m_per_px": 0.003064516129032258,
+  "origin_px": [
+    1191.0,
+    402.0
+  ]
+}

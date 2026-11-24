@@ -1,0 +1,4 @@
+track,n_points,duration_s,deg_x,deg_y,r2,fit_rmse_mm,arc_len_rope_m,mean_speed_rope,max_speed_rope,head_scale_factor,arc_len_head_m,mean_speed_head,max_speed_head,m_per_px_rope,m_per_px_head,head_rmse_mm
+A2,24,0.767,4,3,0.9593,179.6,5.933,7.741,17.105,4.29,1.382,1.803,3.984,0.013158,0.003065,41.8
+A3,24,0.767,4,5,0.9983,94.5,8.921,11.623,18.928,3.87,2.305,3.003,4.891,0.005882,0.00152,24.4
+Dressel,18,2.267,5,5,0.9973,46.6,3.502,1.544,1.919,3.04,1.153,0.509,0.632,0.009615,0.003167,15.3

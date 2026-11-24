@@ -1,0 +1,102 @@
+{
+  "phase_definition": "entry = max forward extension, exit = rearmost point of the backward sweep",
+  "dressel_own_r2": 0.9939,
+  "own_fits": [
+    {
+      "track": "A2",
+      "frames": "320-328",
+      "n_points": 9,
+      "duration_s": 0.267,
+      "degree": 2,
+      "forward_span_m": 0.579,
+      "vertical_span_m": 0.434,
+      "arc_length_m": 0.762,
+      "mean_speed_m_s": 2.854,
+      "max_speed_m_s": 4.541,
+      "r2_own_fit": 0.9891,
+      "fit_rmse_mm": 25.8
+    },
+    {
+      "track": "A3",
+      "frames": "177-194",
+      "n_points": 18,
+      "duration_s": 0.567,
+      "degree": 3,
+      "forward_span_m": 1.373,
+      "vertical_span_m": 0.481,
+      "arc_length_m": 1.764,
+      "mean_speed_m_s": 3.11,
+      "max_speed_m_s": 4.414,
+      "r2_own_fit": 0.9945,
+      "fit_rmse_mm": 36.5
+    },
+    {
+      "track": "Dressel",
+      "frames": "682-778",
+      "n_points": 13,
+      "duration_s": 1.6,
+      "degree": 3,
+      "forward_span_m": 0.978,
+      "vertical_span_m": 0.501,
+      "arc_length_m": 1.418,
+      "mean_speed_m_s": 0.886,
+      "max_speed_m_s": 1.232,
+      "r2_own_fit": 0.9939,
+      "fit_rmse_mm": 29.7
+    }
+  ],
+  "cross_model": [
+    {
+      "source": "Dressel",
+      "target": "A3",
+      "degree": 3,
+      "r2": 0.8727,
+      "r2_scale_invariant": 0.9026,
+      "r2_rotated": 0.9332,
+      "angle_deg": 6.5,
+      "scale": 1.128,
+      "rotation_scale": 1.135,
+      "rmse_mm": 175.4
+    },
+    {
+      "source": "Dressel",
+      "target": "A2",
+      "degree": 3,
+      "r2": -0.9137,
+      "r2_scale_invariant": 0.6401,
+      "r2_rotated": 0.785,
+      "angle_deg": -14.7,
+      "scale": 0.538,
+      "rotation_scale": 0.556,
+      "rmse_mm": 342.5
+    },
+    {
+      "source": "A3",
+      "target": "Dressel",
+      "degree": 3,
+      "r2": 0.7797,
+      "r2_scale_invariant": 0.8752,
+      "r2_rotated": 0.9148,
+      "angle_deg": -6.6,
+      "scale": 0.847,
+      "rotation_scale": 0.853,
+      "rmse_mm": 178.8
+    },
+    {
+      "source": "A2",
+      "target": "Dressel",
+      "degree": 3,
+      "r2": 0.1881,
+      "r2_scale_invariant": 0.5826,
+      "r2_rotated": 0.7464,
+      "angle_deg": 14.0,
+      "scale": 1.628,
+      "rotation_scale": 1.677,
+      "rmse_mm": 343.3
+    }
+  ],
+  "gap_to_his_own_r2": {
+    "A3": 0.0913,
+    "A2": 0.3538
+  }
+}

@@ -1,0 +1,6 @@
+pair,window,position_rmse_m,mean_diff_m,max_diff_m,arc_length_difference_m
+A2 vs A3,full_track,0.639,0.4785,1.5196,0.3619
+A2 vs Dressel,full_track,0.5693,0.4593,1.2153,0.1338
+A3 vs Dressel,full_track,0.1939,0.1649,0.4342,0.2281
+Dressel vs A3,pull_phase,0.165,0.1274,0.4063,0.346
+Dressel vs A2,pull_phase,0.3414,0.3165,0.4668,0.656

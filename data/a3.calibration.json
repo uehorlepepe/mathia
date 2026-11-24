@@ -1,0 +1,23 @@
+{
+  "video": "data/a3yifan.mov",
+  "frame": 180,
+  "fps": 29.97,
+  "image_width": 1920,
+  "image_height": 1080,
+  "p1_px": [
+    1200.0,
+    100.0
+  ],
+  "p2_px": [
+    1200.0,
+    525.0
+  ],
+  "distance_m": 2.5,
+  "pixel_distance": 425.0,
+  "m_per_px": 0.0058823529411764705,
+  "method": "lane-rope spacing (2.5 m between the ropes bounding the lane), vertical distance at the swimmer's column",
+  "reference_note": "yellow near rope vs the blue/white far rope of the lane",
+  "crosscheck_head_m_per_px": 0.00152,
+  "compression_factor": 3.869969040247678,
+  "caveat": "Grazing view: the lane width is foreshortened, so this scale overestimates metres in the hand plane; it is provisional."
+}

@@ -1,0 +1,13 @@
+{
+  "video": "data/dressel.mp4",
+  "fps": 60.0,
+  "point": "wrist",
+  "step": 1,
+  "min_change": 1.0,
+  "calibration": null,
+  "m_per_px": null,
+  "origin_px": [
+    824.0,
+    342.0
+  ]
+}

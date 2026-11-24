@@ -1,0 +1,4 @@
+track,frames,n_points,duration_s,degree,forward_span_m,vertical_span_m,arc_length_m,mean_speed_m_s,max_speed_m_s,r2_own_fit,fit_rmse_mm
+A2,320-328,9,0.267,2,0.579,0.434,0.762,2.854,4.541,0.9891,25.8
+A3,177-194,18,0.567,3,1.373,0.481,1.764,3.11,4.414,0.9945,36.5
+Dressel,682-778,13,1.6,3,0.978,0.501,1.418,0.886,1.232,0.9939,29.7

@@ -1,0 +1,43 @@
+{
+  "video": "data/a2yifan.mov",
+  "frame": 330,
+  "fps": 29.97,
+  "image_width": 1920,
+  "image_height": 1080,
+  "m_per_px": 0.004596774193548387,
+  "m_per_px_rel_unc": 0.1810427636054114,
+  "method": "body-referenced scale from swim-cap width averaged over several frames",
+  "reference": {
+    "head_m": 0.19,
+    "head_m_unc": 0.02
+  },
+  "cap_measurement": {
+    "width_px_mean": 41.3,
+    "width_px_sd": 6.1,
+    "n_frames": 6,
+    "frames": [
+      317,
+      318,
+      319,
+      320,
+      321,
+      322
+    ],
+    "how": "dark cap blob, tracked frame-to-frame"
+  },
+  "rope_crosscheck": {
+    "p1_px": [
+      1100.0,
+      420.0
+    ],
+    "p2_px": [
+      1100.0,
+      610.0
+    ],
+    "distance_m_rope": 2.5,
+    "pixel_distance": 190.0,
+    "m_per_px_rope": 0.013158,
+    "ratio_rope_over_body": 2.86,
+    "note": "lane width is foreshortened in these near-axial views; used only as a cross-check, not as the working scale"
+  }
+}

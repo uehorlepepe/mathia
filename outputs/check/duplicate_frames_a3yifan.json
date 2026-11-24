@@ -1,0 +1,40 @@
+{
+  "video": "data/a3yifan.mov",
+  "nominal_fps": 29.97,
+  "total_frames": 300,
+  "tolerance": 0.05,
+  "results": [
+    {
+      "scope": "whole clip",
+      "frames_analysed": 300,
+      "transitions": 299,
+      "identical_transitions": 0,
+      "distinct_pictures": 300,
+      "duplicate_fraction": 0.0,
+      "mean_median_abs_diff": [
+        12.04,
+        12.28
+      ],
+      "frames_per_unique_picture": 1.0,
+      "nominal_fps": 29.97,
+      "effective_unique_picture_hz": 29.97,
+      "slowed": false
+    },
+    {
+      "scope": "frames 165-200",
+      "frames_analysed": 37,
+      "transitions": 36,
+      "identical_transitions": 0,
+      "distinct_pictures": 37,
+      "duplicate_fraction": 0.0,
+      "mean_median_abs_diff": [
+        14.33,
+        14.45
+      ],
+      "frames_per_unique_picture": 1.0,
+      "nominal_fps": 29.97,
+      "effective_unique_picture_hz": 29.97,
+      "slowed": false
+    }
+  ]
+}

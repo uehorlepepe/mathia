@@ -1,0 +1,40 @@
+{
+  "video": "data/dressel.mp4",
+  "nominal_fps": 60.0,
+  "total_frames": 2030,
+  "tolerance": 0.05,
+  "results": [
+    {
+      "scope": "whole clip",
+      "frames_analysed": 2030,
+      "transitions": 2029,
+      "identical_transitions": 973,
+      "distinct_pictures": 1057,
+      "duplicate_fraction": 0.48,
+      "mean_median_abs_diff": [
+        2.08,
+        0.06
+      ],
+      "frames_per_unique_picture": 1.92,
+      "nominal_fps": 60.0,
+      "effective_unique_picture_hz": 31.23,
+      "slowed": true
+    },
+    {
+      "scope": "frames 640-780",
+      "frames_analysed": 142,
+      "transitions": 141,
+      "identical_transitions": 99,
+      "distinct_pictures": 43,
+      "duplicate_fraction": 0.702,
+      "mean_median_abs_diff": [
+        0.7,
+        0.0
+      ],
+      "frames_per_unique_picture": 3.36,
+      "nominal_fps": 60.0,
+      "effective_unique_picture_hz": 17.87,
+      "slowed": true
+    }
+  ]
+}

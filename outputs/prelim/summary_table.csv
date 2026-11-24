@@ -1,0 +1,7 @@
+track,window,frames,n_points,duration_s,degree,r2_fit_own_track,r2_his_model_on_mine,r2_his_model_on_mine_scaled,size_factor_k,r2_his_model_on_mine_rotated,rotation_deg,fit_rmse_mm,forward_span_m,vertical_span_m,arc_length_m,arc_pm_m,mean_speed_m_s,max_speed_m_s,cap_width_px,cap_sd_px,cap_frames,m_per_px,scale_unc_pct,time_base
+A2,full_track,317-340,24,0.767,3/3,0.8275,-2.4053,-0.2833,0.3324,,,129.3,0.746,0.551,1.706,0.309,2.224,6.769,41.3,6.1,6,0.004597,18.1,real time (native 29.97 fps)
+A2,pull_phase,320-328,9,0.267,2,0.9891,-0.9137,0.6401,0.538,0.785,-14.7,25.8,0.579,0.434,0.762,0.138,2.854,4.541,41.3,6.1,6,0.004597,18.1,real time (native 29.97 fps)
+A3,full_track,171-194,24,0.767,3/3,0.991,0.8314,0.8394,0.9347,,,47.0,1.443,0.603,2.067,0.316,2.695,5.525,148.0,16.4,7,0.001284,15.3,real time (native 29.97 fps)
+A3,pull_phase,177-194,18,0.567,3,0.9945,0.8727,0.9026,1.128,0.9332,6.5,36.5,1.373,0.481,1.764,0.27,3.11,4.414,148.0,16.4,7,0.001284,15.3,real time (native 29.97 fps)
+Dressel,full_track,642-778,18,2.267,3/3,0.9836,,,,,,55.5,1.022,0.818,1.839,0.259,0.812,1.391,40.6,3.8,5,0.00468,14.1,"slowed footage (3.36 frames per picture, not real time)"
+Dressel,pull_phase,682-778,13,1.6,3,0.9939,,,,,,29.7,0.978,0.501,1.418,0.199,0.886,1.232,40.6,3.8,5,0.00468,14.1,"slowed footage (3.36 frames per picture, not real time)"

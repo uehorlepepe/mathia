@@ -1,0 +1,55 @@
+{
+  "inventory": [
+    {
+      "clip": "A2",
+      "yellow_px": 0,
+      "separate_yellow_lines": 0,
+      "near_line_clipped_by_frame_edge": false
+    },
+    {
+      "clip": "A3",
+      "yellow_px": 43048,
+      "separate_yellow_lines": 7,
+      "near_line_clipped_by_frame_edge": true,
+      "illustration_frame": 185
+    },
+    {
+      "clip": "Dressel",
+      "yellow_px": 855,
+      "separate_yellow_lines": 0,
+      "near_line_clipped_by_frame_edge": false,
+      "illustration_frame": 674
+    }
+  ],
+  "transfer": [
+    {
+      "clip": "A2",
+      "m_per_px_cap": 0.004597,
+      "m_per_px_lane": 0.013158,
+      "rope_over_cap": 2.862442105263158,
+      "head_implied_m": 0.54,
+      "pull_arc_body_m": 0.762,
+      "pull_arc_lane_m": 2.18
+    },
+    {
+      "clip": "A3",
+      "m_per_px_cap": 0.001284,
+      "m_per_px_lane": 0.005882,
+      "rope_over_cap": 4.581768421052631,
+      "head_implied_m": 0.87,
+      "pull_arc_body_m": 1.764,
+      "pull_arc_lane_m": 8.08
+    },
+    {
+      "clip": "Dressel",
+      "m_per_px_cap": 0.00468,
+      "m_per_px_lane": 0.009615,
+      "rope_over_cap": 2.0545736842105264,
+      "head_implied_m": 0.39,
+      "pull_arc_body_m": 1.418,
+      "pull_arc_lane_m": 2.91
+    }
+  ],
+  "size_ratio_cap": 1.244,
+  "size_ratio_lane": 2.774
+}

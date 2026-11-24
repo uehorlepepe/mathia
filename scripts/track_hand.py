@@ -11,6 +11,9 @@ Controls:
     s           save now
     q / esc     save and quit
 
+Frames that are visually identical are skipped automatically (some clips
+repeat each real frame several times), so every click shows a new image.
+
 The CSV is auto-saved after every click, so a crash loses at most one point.
 
 Usage:
@@ -27,7 +30,14 @@ from pathlib import Path
 import cv2
 import numpy as np
 
-WINDOW = "track hand"
+def enhance(im):
+    """Local-contrast + unsharp mask, for washed-out underwater footage."""
+    lab = cv2.cvtColor(im, cv2.COLOR_BGR2LAB)
+    l, a, b = cv2.split(lab)
+    l = cv2.createCLAHE(clipLimit=2.5, tileGridSize=(8, 8)).apply(l)
+    im = cv2.cvtColor(cv2.merge([l, a, b]), cv2.COLOR_LAB2BGR)
+    blur = cv2.GaussianBlur(im, (0, 0), 1.2)
+    return cv2.addWeighted(im, 1.6, blur, -0.6, 0)
 
 
 def parse_args():
@@ -42,6 +52,20 @@ def parse_args():
     p.add_argument("--width", type=int, default=1280)
     p.add_argument("--point", default="hand",
                    help="label, e.g. wrist or fingertip")
+    p.add_argument("--enhance", action="store_true",
+                   help="CLAHE + unsharp mask to make a dim hand easier to see")
+    p.add_argument("--loupe", type=int, default=4,
+                   help="magnification of the cursor loupe (0 disables)")
+    p.add_argument("--min-change", type=float, default=1.0,
+                   help="skip repeated/near-identical frames while advancing "
+                        "(mean abs pixel difference; 0 disables)")
+    p.add_argument("--max-skip", type=int, default=40,
+                   help="maximum frames to skip while looking for a new image")
+    p.add_argument("--title", default=None,
+                   help="window title (default: video file name)")
+    p.add_argument("--at", type=float, default=None,
+                   help="start at this time in seconds instead of resuming "
+                        "after the last recorded point")
     return p.parse_args()
 
 
@@ -81,7 +105,9 @@ def main():
     if not ok:
         raise SystemExit("Could not read first frame")
     h, w = frame.shape[:2]
-    scale = args.width / w if w > args.width else 1.0
+    # Always scale to --width: upscaling small clips makes precise clicking
+    # easier, and to_original() divides the click coordinates back out.
+    scale = args.width / w
     disp_size = (int(w * scale), int(h * scale))
 
     m_per_px = None
@@ -102,8 +128,16 @@ def main():
             records[int(r["frame"])] = (float(r["x_px"]), float(r["y_px"]))
         print(f"Loaded {len(records)} existing points from {args.out}")
 
-    origin = None
-    current = start_frame
+    origin = records[min(records)] if records else None
+    # Resume at the first frame after the last recorded one, so a crash or an
+    # accidental close doesn't make you re-click points you already have.
+    done = [f for f in records if start_frame <= f <= end_frame]
+    if args.at is not None:
+        current = int(round(args.at * fps))
+        current = min(max(current, start_frame), end_frame)
+        done = [f for f in done if f < current]
+    else:
+        current = min(max(done) + 1, end_frame) if done else start_frame
     cap.set(cv2.CAP_PROP_POS_FRAMES, current)
     ok, frame = cap.read()
     if not ok:
@@ -112,16 +146,43 @@ def main():
     def to_original(x, y):
         return x / scale, y / scale
 
+    history = [current]
+
+    def same_image(a, b):
+        return (args.min_change > 0
+                and float(cv2.absdiff(a, b).mean()) < args.min_change)
+
     def advance():
+        """Step forward, skipping frames that are visually identical.
+
+        Some source clips are stored at 30/60 fps but repeat each real frame
+        several times.  Without this, a click appears not to advance because
+        the next frame is the same picture.
+        """
         nonlocal current, frame
-        current = min(current + skip, end_frame)
-        cap.set(cv2.CAP_PROP_POS_FRAMES, current)
-        ok, frame = cap.read()
-        return ok
+        if current >= end_frame:
+            return False
+        base = frame
+        steps = 0
+        new = frame
+        while current < end_frame and steps < args.max_skip:
+            ok, new = cap.read()
+            if not ok:
+                return False
+            current += 1
+            steps += 1
+            if steps >= skip and not same_image(new, base):
+                break
+        frame = new
+        history.append(current)
+        return True
 
     def go_back():
         nonlocal current, frame
-        current = max(current - skip, start_frame)
+        if len(history) > 1:
+            history.pop()
+        target = history[-1] if history else max(current - skip, start_frame)
+        current = target
         cap.set(cv2.CAP_PROP_POS_FRAMES, current)
         ok, frame = cap.read()
         return ok
@@ -135,6 +196,7 @@ def main():
             "fps": fps,
             "point": args.point,
             "step": skip,
+            "min_change": args.min_change,
             "calibration": args.calibration,
             "m_per_px": m_per_px,
             "origin_px": list(origin) if origin else None,
@@ -142,23 +204,32 @@ def main():
         save_csv(args.out, records, fps, m_per_px,
                  origin or (0.0, 0.0), meta)
 
+    win = args.title or f"track hand - {Path(args.video).stem}"
+    mouse = {"pos": None}
+
     def on_mouse(event, x, y, flags, param):
         nonlocal origin
-        if event == cv2.EVENT_LBUTTONDOWN:
+        if event == cv2.EVENT_MOUSEMOVE:
+            mouse["pos"] = (x, y)
+        elif event == cv2.EVENT_LBUTTONDOWN:
             records[current] = to_original(x, y)
             if origin is None:
                 origin = records[current]
             commit()
+            px, py = records[current]
+            print(f"point frame={current} t={current / fps:.3f}s "
+                  f"({px:.1f},{py:.1f})  total={len(records)}", flush=True)
             advance()
 
-    cv2.namedWindow(WINDOW, cv2.WINDOW_AUTOSIZE)
-    cv2.setMouseCallback(WINDOW, on_mouse)
+    cv2.namedWindow(win, cv2.WINDOW_AUTOSIZE)
+    cv2.setMouseCallback(win, on_mouse)
     print(__doc__)
     print(f"Video: {w}x{h} @ {fps:.3f} fps, {n_frames} frames")
     print(f"Digitising frames {start_frame} to {end_frame}")
 
     while True:
-        canvas = cv2.resize(frame, disp_size)
+        view = enhance(frame) if args.enhance else frame
+        canvas = cv2.resize(view, disp_size)
 
         pts = sorted(records)
         for i in range(1, len(pts)):
@@ -167,6 +238,9 @@ def main():
             cv2.line(canvas, (int(a[0] * scale), int(a[1] * scale)),
                      (int(b[0] * scale), int(b[1] * scale)),
                      (0, 200, 0), 1, cv2.LINE_AA)
+        for p in records.values():
+            cv2.circle(canvas, (int(p[0] * scale), int(p[1] * scale)),
+                       3, (0, 220, 0), -1)
 
         if current in records:
             p = records[current]
@@ -184,7 +258,31 @@ def main():
         cv2.putText(canvas, txt, (8, 23), cv2.FONT_HERSHEY_SIMPLEX,
                     0.55, (255, 255, 255), 1, cv2.LINE_AA)
 
-        cv2.imshow(WINDOW, canvas)
+        # Magnified inset around the cursor, so small/low-res hands are clickable.
+        if args.loupe > 0 and mouse["pos"] is not None:
+            mx, my = mouse["pos"]
+            ox, oy = int(mx / scale), int(my / scale)
+            half = 28
+            x0, x1 = max(0, ox - half), min(w, ox + half)
+            y0, y1 = max(0, oy - half), min(h, oy + half)
+            crop = view[y0:y1, x0:x1]
+            if crop.size:
+                size = min(320, int(2 * half * args.loupe))
+                loupe = cv2.resize(crop, (size, size),
+                                   interpolation=cv2.INTER_CUBIC)
+                lx = 8 if mx > disp_size[0] // 2 else disp_size[0] - size - 8
+                ly = 42
+                canvas[ly:ly + size, lx:lx + size] = loupe
+                cv2.rectangle(canvas, (lx, ly), (lx + size, ly + size),
+                              (255, 255, 255), 1)
+                c = (lx + size // 2, ly + size // 2)
+                cv2.drawMarker(canvas, c, (0, 0, 255),
+                               cv2.MARKER_CROSS, 16, 1)
+                cv2.putText(canvas, f"{args.loupe}x", (lx + 4, ly + 16),
+                            cv2.FONT_HERSHEY_SIMPLEX, 0.5,
+                            (255, 255, 255), 1, cv2.LINE_AA)
+
+        cv2.imshow(win, canvas)
         key = cv2.waitKey(20) & 0xFF
         if key in (ord("q"), 27):
             break
@@ -215,6 +313,8 @@ def main():
             ok, frame = cap.read()
             if not ok:
                 break
+            history.clear()
+            history.append(current)
 
     commit()
     cap.release()
