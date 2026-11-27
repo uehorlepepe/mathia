@@ -4,10 +4,13 @@
   "point": "wrist",
   "step": 1,
   "min_change": 1.0,
-  "calibration": null,
-  "m_per_px": null,
-  "origin_px": [
-    824.0,
-    342.0
-  ]
+  "columns": [
+    "frame",
+    "t",
+    "x_px",
+    "y_px"
+  ],
+  "calibration": "data/dressel.calibration_cap.json",
+  "m_per_px": 0.00468,
+  "converted": "data/dressel_hand_points_metres.csv"
 }

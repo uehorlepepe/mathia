@@ -38,7 +38,7 @@ COLOURS = {"a2": "#1f6f8b", "a3": "#c0504d", "dressel": "#3f3f3f"}
 def feasibility_figure() -> None:
     fig, ax = plt.subplots(figsize=(6.4, 4.3), dpi=220)
     for stem, (lo, hi, deg) in WINDOWS.items():
-        d = pd.read_csv(ROOT / f"data/{stem}_hand_manual_bodycal.csv")
+        d = pd.read_csv(ROOT / f"data/{stem}_hand_points_metres.csv")
         d = d[(d.frame >= lo) & (d.frame <= hi)].sort_values("frame")
         t = d.t.to_numpy()
         u = (t - t.min()) / max(t.max() - t.min(), 1e-9)
@@ -85,7 +85,7 @@ def build_html() -> str:
     data_rows = [
         (
             "Yifan A2",
-            "317–340",
+            "317-340",
             "24 (9 in pull)",
             "3 / 2",
             f"{g('A2','full_track','r2_fit_own_track','{:.3f}')} / {g('A2','pull_phase','r2_fit_own_track','{:.3f}')}",
@@ -94,7 +94,7 @@ def build_html() -> str:
         ),
         (
             "Yifan A3",
-            "171–194",
+            "171-194",
             "24 (18 in pull)",
             "3 / 3",
             f"{g('A3','full_track','r2_fit_own_track','{:.3f}')} / {g('A3','pull_phase','r2_fit_own_track','{:.3f}')}",
@@ -103,7 +103,7 @@ def build_html() -> str:
         ),
         (
             "Elite sprinter",
-            "642–778",
+            "642-778",
             "18 (13 in pull)",
             "3 / 3",
             f"{g('Dressel','full_track','r2_fit_own_track','{:.3f}')} / {g('Dressel','pull_phase','r2_fit_own_track','{:.3f}')}",
@@ -194,11 +194,11 @@ def build_html() -> str:
 <div class="meta"><span><b>Name:</b> Yifan Wang</span><span><b>Course:</b> MCV4U7</span>
 <span><b>Due:</b> Monday, October 19, 2026</span></div>
 
-<h2>1. Exploration Topic <span class="num">— sufficiently narrow, and plotted before committing</span></h2>
+<h2>1. Exploration Topic <span class="num">: sufficiently narrow, and plotted before committing</span></h2>
 <div class="topic">A Comparative Parametric and Kinematic Analysis of Underwater Hand
 Trajectories Between a High School Competitive Swimmer and an Elite Freestyle Sprinter</div>
-<p class="note">The topic is deliberately narrow: it concerns one phase of one stroke — the
-underwater hand pull of freestyle — for one hand, in two swimmers, rather than "modelling
+<p class="note">The topic is deliberately narrow: it concerns one phase of one stroke, the
+underwater hand pull of freestyle, for one hand, in two swimmers, rather than "modelling
 swimming" or "parametric curves" in general.</p>
 
 <h2>2. Specific Aim / Objective</h2>
@@ -233,7 +233,7 @@ polynomial was fitted to each before this proposal was written. The pull-phase r
 </table>
 
 <div class="fig"><img src="proposal_feasibility.png" alt="Digitised pull-phase hand trajectories"></div>
-<div class="cap">Figure 1 — the three digitised pull-phase hand paths in one common frame,
+<div class="cap">Figure 1. The three digitised pull-phase hand paths in one common frame,
 calibrated on the swim cap (0.19 m) and shown at true relative size.</div>
 
 <p>Every fit exceeds the 0.95 threshold, residuals are of the order of a few centimetres, and
@@ -248,7 +248,7 @@ result will be reported as indicative.</p>
 <p class="prompt">This criterion is about creative application of mathematics learned in this course.</p>
 <p>As a competitive high school swimmer who placed 2nd in the B final at OFSAA and who has
 coaching experience, I routinely analyse stroke mechanics and drag reduction from recordings.
-The usual vocabulary for this is qualitative — "catch the water", "finish the pull" — and it is
+The usual vocabulary for this is qualitative ("catch the water", "finish the pull"), and it is
 not measurable. What interests me mathematically is that a hand moving through water traces a
 curve, and that curve can be written as a vector function, differentiated, integrated and
 compared. The creative step is to treat a coach's cue as a parametric curve and a disagreement
@@ -273,7 +273,7 @@ filmed from the pool deck at 1920 × 1080, 29.97 fps, and digitised by me one fr
 <div class="kv"><b>Elite footage:</b> underwater 50 m freestyle race footage of an elite
 sprinter, 1280 × 720, 60 fps, digitised in the same way (18 points).</div>
 <div class="kv"><b>Calibration object:</b> a 0.19 m swim cap, measured in several frames of
-each clip (5–7 frames) to obtain the pixel-to-metre scale and its uncertainty (±14–18%),
+each clip (5-7 frames) to obtain the pixel-to-metre scale and its uncertainty (±14-18%),
 with the pool's lane markings checked as a cross-reference.</div>
 <div class="kv"><b>Software:</b> Python with NumPy and pandas for the polynomial fits,
 numerical differentiation and integration; results reproducible from the digitised coordinates.</div>

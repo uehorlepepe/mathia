@@ -23,7 +23,7 @@ TRACKS = {"a2": 2, "a3": 3, "dressel": 3}  # degree used per clip (a2: too few p
 
 
 def load(tag):
-    d = pd.read_csv(f"data/{tag}_hand_manual_bodycal.csv").sort_values("t").reset_index(drop=True)
+    d = pd.read_csv(f"data/{tag}_hand_points_metres.csv").sort_values("t").reset_index(drop=True)
     t = d.t.to_numpy()
     return t - t.min(), d.x_m.to_numpy(), d.y_m.to_numpy(), d.frame.to_numpy()
 

@@ -5,7 +5,7 @@ flag and the clip's calibration constants attached, so the file stands alone
 without the per-clip tracker CSVs or JSON calibrations.
 
 Usage:  .venv/bin/python scripts/export_all_data.py
-Output: outputs/all_data.csv
+Output: data/all_points.csv
 """
 
 from __future__ import annotations
@@ -16,13 +16,13 @@ from pathlib import Path
 import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
-OUT = ROOT / "outputs" / "all_data.csv"
+OUT = ROOT / "data" / "all_points.csv"
 
 # clip stem -> (display name, pull-phase window used in the analysis)
 CLIPS = {
     "a2": ("Yifan A2", (320, 328)),
     "a3": ("Yifan A3", (177, 194)),
-    "dressel": ("Elite", (682, 778)),
+    "dressel": ("Caeleb Dressel", (682, 778)),
 }
 TIME_BASE = {
     "a2": "real time",
@@ -34,8 +34,8 @@ TIME_BASE = {
 def main() -> None:
     rows = []
     for stem, (name, (lo, hi)) in CLIPS.items():
-        cal = json.loads((ROOT / f"data/{stem}.calibration_body.json").read_text())
-        d = pd.read_csv(ROOT / f"data/{stem}_hand_manual_bodycal.csv")
+        cal = json.loads((ROOT / f"data/{stem}.calibration_cap.json").read_text())
+        d = pd.read_csv(ROOT / f"data/{stem}_hand_points_metres.csv")
         for _, r in d.sort_values("frame").iterrows():
             rows.append(
                 {

@@ -61,7 +61,7 @@ def time_basis(tag, repeat):
 
 def main():
     summaries = {k: json.loads((v / "summary.json").read_text()) for k, v in PAIRS.items()}
-    cal = {t: json.loads(Path(f"data/{t}.calibration_body.json").read_text()) for t in CALIBRATIONS}
+    cal = {t: json.loads(Path(f"data/{t}.calibration_cap.json").read_text()) for t in CALIBRATIONS}
     repeat = load_repeat_factor()
 
     def track(summary, label):
@@ -100,7 +100,7 @@ def main():
         c = cal[tag]
         cm = c["cap_measurement"]
         rel = c["m_per_px_rel_unc"]
-        d = pd.read_csv(f"data/{tag}_hand_manual_bodycal.csv")
+        d = pd.read_csv(f"data/{tag}_hand_points_metres.csv")
         base = dict(
             track=label,
             time_base=time_basis(tag, repeat),

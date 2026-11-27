@@ -17,8 +17,9 @@ repeat each real frame several times), so every click shows a new image.
 The CSV is auto-saved after every click, so a crash loses at most one point.
 
 Usage:
-    python scripts/track_hand.py data/me.mp4 --out data/me_hand.csv \
-        --calibration data/me.calibration.json --start 2.0 --end 4.0
+    python scripts/track_hand.py data/a3yifan.mov \
+        --out data/a3_hand_manual.csv --start 5.7 --end 6.5 \
+        --point wrist --enhance --loupe 5
 """
 
 import argparse

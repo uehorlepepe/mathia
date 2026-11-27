@@ -4,10 +4,13 @@
   "point": "wrist",
   "step": 1,
   "min_change": 1.0,
-  "calibration": "data/a2.calibration_body.json",
-  "m_per_px": 0.003064516129032258,
-  "origin_px": [
-    1191.0,
-    402.0
-  ]
+  "columns": [
+    "frame",
+    "t",
+    "x_px",
+    "y_px"
+  ],
+  "calibration": "data/a2.calibration_cap.json",
+  "m_per_px": 0.004597,
+  "converted": "data/a2_hand_points_metres.csv"
 }

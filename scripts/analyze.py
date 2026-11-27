@@ -1,9 +1,9 @@
 """Fit parametric hand trajectories, compute kinematics/arc length, and compare.
 
 Examples:
-    python scripts/analyze.py data/me_hand.csv --label Me
-    python scripts/analyze.py data/me_hand.csv data/mcevoy_hand.csv \
-        --labels Me McEvoy --compare
+    python scripts/analyze.py data/a3_hand_points_metres.csv --label A3
+    python scripts/analyze.py data/a3_hand_points_metres.csv \
+        data/dressel_hand_points_metres.csv --labels A3 Dressel --degree 3
 
 Input is the CSV written by track_hand.py. If x_m/y_m are empty, pass
 --m-per-px (or re-run tracking with --calibration).

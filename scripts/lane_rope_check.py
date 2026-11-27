@@ -25,9 +25,9 @@ import cv2
 import numpy as np
 
 CLIPS = {
-    "a2": dict(video="data/a2yifan.mov", calib="data/a2.calibration_body.json", label="A2"),
-    "a3": dict(video="data/a3yifan.mov", calib="data/a3.calibration_body.json", label="A3"),
-    "dressel": dict(video="data/dressel.mp4", calib="data/dressel.calibration_body.json",
+    "a2": dict(video="data/a2yifan.mov", calib="data/a2.calibration_cap.json", label="A2"),
+    "a3": dict(video="data/a3yifan.mov", calib="data/a3.calibration_cap.json", label="A3"),
+    "dressel": dict(video="data/dressel.mp4", calib="data/dressel.calibration_cap.json",
                     label="Dressel"),
 }
 HEAD_M = 0.19
